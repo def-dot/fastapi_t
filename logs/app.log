@@ -344,3 +344,13 @@ Exception: 测试异常 - 注册失败
 2026-04-17 15:08:35 | ERROR    | app.core.middleware | 127.0.0.1 GET /.well-known/appspecific/com.chrome.devtools.json -> 404 (0.001s), payload: {'ip': '127.0.0.1', 'method': 'GET', 'path': '/.well-known/appspecific/com.chrome.devtools.json', 'params': '-', 'status': 404, 'latency': '0.001s', 'error': 'Not Found'}
 2026-04-17 15:08:35 | INFO     | app.core.middleware | 127.0.0.1 GET /openapi.json -> 200 (0.001s), payload: {'ip': '127.0.0.1', 'method': 'GET', 'path': '/openapi.json', 'params': '-', 'status': 200, 'latency': '0.001s', 'error': None}
 2026-04-17 15:09:03 | INFO     | __main__ | Shutting down...
+2026-04-17 15:57:36 | INFO     | __main__ | FastAPI Demo started — DB tables created
+2026-04-17 15:57:41 | INFO     | apps.core.middleware | 127.0.0.1 GET /docs -> 200 (0.001s), payload: {'ip': '127.0.0.1', 'method': 'GET', 'path': '/docs', 'params': '-', 'status': 200, 'latency': '0.001s'}
+2026-04-17 15:57:41 | ERROR    | apps.core.middleware | 127.0.0.1 GET /.well-known/appspecific/com.chrome.devtools.json -> 404 (0.001s), payload: {'ip': '127.0.0.1', 'method': 'GET', 'path': '/.well-known/appspecific/com.chrome.devtools.json', 'params': '-', 'status': 404, 'latency': '0.001s', 'error': 'Not Found'}
+2026-04-17 15:57:47 | INFO     | apps.core.middleware | 127.0.0.1 GET /openapi.json -> 200 (0.014s), payload: {'ip': '127.0.0.1', 'method': 'GET', 'path': '/openapi.json', 'params': '-', 'status': 200, 'latency': '0.014s'}
+2026-04-17 15:58:29 | INFO     | apps.core.middleware | 127.0.0.1 GET /docs -> 200 (0.000s), payload: {'ip': '127.0.0.1', 'method': 'GET', 'path': '/docs', 'params': '-', 'status': 200, 'latency': '0.000s'}
+2026-04-17 15:58:33 | INFO     | apps.core.middleware | 127.0.0.1 GET /openapi.json -> 200 (0.000s), payload: {'ip': '127.0.0.1', 'method': 'GET', 'path': '/openapi.json', 'params': '-', 'status': 200, 'latency': '0.000s'}
+2026-04-17 15:59:03 | INFO     | apps.routers.auth | User logged in: alice
+2026-04-17 15:59:03 | INFO     | apps.core.middleware | 127.0.0.1 POST /api/auth/login -> 200 (0.218s), payload: {'ip': '127.0.0.1', 'method': 'POST', 'path': '/api/auth/login', 'params': '{"grant_type": "password", "username": "alice", "password": "***"}', 'status': 200, 'latency': '0.218s'}
+2026-04-17 15:59:08 | INFO     | apps.core.middleware | 127.0.0.1 GET /api/users/me -> 200 (0.009s), payload: {'ip': '127.0.0.1', 'method': 'GET', 'path': '/api/users/me', 'params': '-', 'status': 200, 'latency': '0.009s'}
+2026-04-17 16:19:57 | INFO     | __main__ | Shutting down...

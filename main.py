@@ -5,13 +5,13 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.core.config import settings
-from app.core.database import Base, engine
-from app.core.exceptions import register_exception_handlers
-from app.core.logging import get_logger, setup_logging
-from app.core.middleware import access_log_middleware
-from app.routers import auth, items, users
-from app.schemas.schemas import ResponseBase
+from apps.core.config import settings
+from apps.core.database import Base, engine
+from apps.core.exceptions import register_exception_handlers
+from apps.core.logging import get_logger, setup_logging
+from apps.core.middleware import access_log_middleware
+from apps.routers import auth, items, users
+from apps.schemas.schemas import ResponseBase
 
 logger = get_logger(__name__)
 

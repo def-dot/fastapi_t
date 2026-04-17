@@ -3,7 +3,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
-from app.core.config import settings
+from apps.core.config import settings
 
 connect_args = {}
 
@@ -25,7 +25,4 @@ class Base(DeclarativeBase):
 # 依赖注入：获取数据库会话
 async def get_db():
     async with AsyncSessionLocal() as db:
-        try:
-            yield db
-        finally:
-            await db.close()
+        yield db

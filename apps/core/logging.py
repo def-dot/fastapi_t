@@ -5,7 +5,7 @@ import sys
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
-from app.core.config import settings
+from apps.core.config import settings
 
 
 def setup_logging() -> None:

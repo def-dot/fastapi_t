@@ -14,11 +14,11 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-from app.core.config import settings
+from apps.core.config import settings
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 # for 'autogenerate' support
-from app.core.database import Base
-from app.models import user, item  # noqa: F401 — 确保模型注册到 Base.metadata
+from apps.core.database import Base
+from apps.models import user, item  # noqa: F401 — 确保模型注册到 Base.metadata
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

@@ -5,11 +5,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import func
 
-from app.core.database import get_db
-from app.core.logging import get_logger
-from app.core.security import get_current_user, hash_password
-from app.models.user import User
-from app.schemas.schemas import (
+from apps.core.database import get_db
+from apps.core.logging import get_logger
+from apps.core.security import get_current_user, hash_password
+from apps.models.user import User
+from apps.schemas.schemas import (
     RESPONSE_401,
     RESPONSE_404,
     Page,
