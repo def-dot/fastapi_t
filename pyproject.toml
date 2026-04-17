@@ -31,7 +31,8 @@ asyncio_mode = "auto"
 testpaths = ["tests"]
 pythonpath = ["."]
 
-[tool.ruff]
+[tool.setuptools.packages.find]
+include = ["apps*"]
 target-version = "py312"
 line-length = 120
 
