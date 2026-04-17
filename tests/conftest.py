@@ -13,7 +13,6 @@ from apps.models.item import Item  # noqa: F401
 from apps.models.user import User  # noqa: F401
 from main import app
 
-
 # SQLite 内存数据库（异步）
 TEST_DATABASE_URL = "sqlite+aiosqlite://"
 test_engine = create_async_engine(TEST_DATABASE_URL, connect_args={"check_same_thread": False})
@@ -57,15 +56,21 @@ async def client() -> AsyncGenerator[AsyncClient, None]:
 @pytest_asyncio.fixture
 async def auth_token(client: AsyncClient) -> str:
     """注册一个用户并返回 access_token"""
-    await client.post("/api/auth/register", json={
-        "username": "testuser",
-        "email": "test@example.com",
-        "password": "secret123",
-    })
-    resp = await client.post("/api/auth/login", data={
-        "username": "testuser",
-        "password": "secret123",
-    })
+    await client.post(
+        "/api/auth/register",
+        json={
+            "username": "testuser",
+            "email": "test@example.com",
+            "password": "secret123",
+        },
+    )
+    resp = await client.post(
+        "/api/auth/login",
+        data={
+            "username": "testuser",
+            "password": "secret123",
+        },
+    )
     return resp.json()["access_token"]
 
 

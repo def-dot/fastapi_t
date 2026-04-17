@@ -15,6 +15,7 @@ from apps.schemas.schemas import ResponseBase
 
 logger = get_logger(__name__)
 
+
 # ---------- lifespan：应用启动/关闭时执行 ----------
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -28,8 +29,6 @@ async def lifespan(app: FastAPI):
         raise
     yield
     logger.info("Shutting down...")
-
-
 
 
 app = FastAPI(
@@ -46,7 +45,7 @@ register_exception_handlers(app)
 # ---------- 中间件 ----------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],        # 生产环境请限制具体域名
+    allow_origins=["*"],  # 生产环境请限制具体域名
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -64,8 +63,10 @@ app.include_router(items.router)
 async def health_check():
     return ResponseBase(data={"status": "ok"})
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 # 生产环境启动方式：

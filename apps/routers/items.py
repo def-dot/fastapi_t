@@ -1,9 +1,9 @@
 """Item 路由 - 完整 CRUD，需要认证"""
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy import func
 
 from apps.core.database import get_db
 from apps.core.logging import get_logger
@@ -31,7 +31,9 @@ router = APIRouter(prefix="/api/items", tags=["Item"], dependencies=[Depends(get
     status_code=status.HTTP_201_CREATED,
     responses={**RESPONSE_401},
 )
-async def create_item(item_in: ItemCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+async def create_item(
+    item_in: ItemCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
+):
     """创建 Item"""
     item = Item(**item_in.model_dump(), owner_id=current_user.id)
     db.add(item)

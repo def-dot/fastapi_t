@@ -1,9 +1,14 @@
 """SQLAlchemy 用户模型"""
 
+from typing import TYPE_CHECKING
+
 from sqlalchemy import Boolean, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from apps.core.database import Base
+
+if TYPE_CHECKING:
+    from apps.models.item import Item
 
 
 class User(Base):

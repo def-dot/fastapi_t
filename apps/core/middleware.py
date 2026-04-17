@@ -44,8 +44,10 @@ async def _build_params(request: Request) -> dict:
         raw = await request.body()
         # 缓存 body 供路由再次读取
         if raw:
+
             async def _receive():
                 return {"type": "http.request", "body": raw}
+
             request._receive = _receive
 
             try:
@@ -55,6 +57,7 @@ async def _build_params(request: Request) -> dict:
                         params.update(body)
                 elif "application/x-www-form-urlencoded" in content_type:
                     from urllib.parse import parse_qs
+
                     form = {k: v[0] if len(v) == 1 else v for k, v in parse_qs(raw.decode()).items()}
                     params.update(form)
             except Exception:
@@ -84,12 +87,12 @@ async def access_log_middleware(request: Request, call_next) -> Response:
         "path": path,
         "params": params_str,
         "status": response.status_code,
-        "latency": f"{elapsed:.3f}s"
+        "latency": f"{elapsed:.3f}s",
     }
     if error_msg:
         log_payload["error"] = error_msg
         log_func = logger.error
-    else:   
+    else:
         log_func = logger.info
     log_func(f"{client_ip} {request.method} {path} -> {response.status_code} ({elapsed:.3f}s), payload: {log_payload}")
     return response

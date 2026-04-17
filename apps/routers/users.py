@@ -1,9 +1,9 @@
 """用户路由 - CRUD + 获取当前用户信息"""
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy import func
 
 from apps.core.database import get_db
 from apps.core.logging import get_logger

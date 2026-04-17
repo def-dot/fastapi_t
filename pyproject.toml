@@ -25,6 +25,7 @@ dev = [
     "httpx>=0.27",
     "aiosqlite>=0.21.0",
     "ruff",
+    "pre-commit",
 ]
 
 [tool.pytest.ini_options]
@@ -38,6 +39,10 @@ include = ["apps*"]
 [tool.ruff]
 target-version = "py312"
 line-length = 120
+exclude = [
+    "alembic",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["B008"]

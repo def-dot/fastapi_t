@@ -3,6 +3,9 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 
 from alembic import context
+from apps.core.config import settings
+from apps.core.database import Base
+from apps.models import item, user  # noqa: F401 — 确保模型注册到 Base.metadata
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -13,12 +16,8 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-from apps.core.config import settings
-
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 # for 'autogenerate' support
-from apps.core.database import Base
-from apps.models import item, user  # noqa: F401 — 确保模型注册到 Base.metadata
 
 target_metadata = Base.metadata
 
@@ -66,9 +65,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

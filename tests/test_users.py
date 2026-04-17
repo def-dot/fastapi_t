@@ -35,32 +35,53 @@ class TestUsers:
         assert resp.status_code == 404
 
     async def test_update_user_email(self, client: AsyncClient, auth_headers: dict):
-        resp = await client.put("/api/users/me", headers=auth_headers, json={
-            "email": "newemail@example.com",
-        })
+        resp = await client.put(
+            "/api/users/me",
+            headers=auth_headers,
+            json={
+                "email": "newemail@example.com",
+            },
+        )
         assert resp.status_code == 200
         assert resp.json()["data"]["email"] == "newemail@example.com"
 
     async def test_update_user_password(self, client: AsyncClient, auth_headers: dict):
-        resp = await client.put("/api/users/me", headers=auth_headers, json={
-            "password": "newsecret456",
-        })
+        resp = await client.put(
+            "/api/users/me",
+            headers=auth_headers,
+            json={
+                "password": "newsecret456",
+            },
+        )
         assert resp.status_code == 200
 
         # 用新密码登录
-        login_resp = await client.post("/api/auth/login", data={
-            "username": "testuser", "password": "newsecret456",
-        })
+        login_resp = await client.post(
+            "/api/auth/login",
+            data={
+                "username": "testuser",
+                "password": "newsecret456",
+            },
+        )
         assert login_resp.status_code == 200
 
     async def test_delete_user(self, client: AsyncClient):
         # 注册一个新用户
-        await client.post("/api/auth/register", json={
-            "username": "deleteme", "email": "delete@example.com", "password": "secret123",
-        })
-        login_resp = await client.post("/api/auth/login", data={
-            "username": "deleteme", "password": "secret123",
-        })
+        await client.post(
+            "/api/auth/register",
+            json={
+                "username": "deleteme",
+                "email": "delete@example.com",
+                "password": "secret123",
+            },
+        )
+        login_resp = await client.post(
+            "/api/auth/login",
+            data={
+                "username": "deleteme",
+                "password": "secret123",
+            },
+        )
         token = login_resp.json()["access_token"]
         headers = {"Authorization": f"Bearer {token}"}
 
@@ -68,7 +89,11 @@ class TestUsers:
         assert resp.status_code == 204
 
         # 验证用户已删除（登录应失败）
-        login_resp2 = await client.post("/api/auth/login", data={
-            "username": "deleteme", "password": "secret123",
-        })
+        login_resp2 = await client.post(
+            "/api/auth/login",
+            data={
+                "username": "deleteme",
+                "password": "secret123",
+            },
+        )
         assert login_resp2.status_code == 401

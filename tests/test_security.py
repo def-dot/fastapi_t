@@ -35,6 +35,7 @@ class TestAccessToken:
 
     def test_invalid_token_raises_401(self):
         from fastapi import HTTPException
+
         with pytest.raises(HTTPException) as exc_info:
             decode_access_token("invalid.token.here")
         assert exc_info.value.status_code == 401

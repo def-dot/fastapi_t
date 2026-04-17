@@ -49,7 +49,7 @@ def decode_access_token(token: str) -> dict:
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="无效的认证凭据",
             headers={"WWW-Authenticate": "Bearer"},
-        )
+        ) from None
 
 
 # ---------- 依赖注入：获取当前用户 ----------

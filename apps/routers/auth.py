@@ -71,12 +71,7 @@ async def register(user_in: UserCreate, background_tasks: BackgroundTasks, db: A
 )
 async def login(form: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
     """登录获取 JWT Token - 支持用户名或邮箱登录（OAuth2 兼容）"""
-    result = await db.execute(
-        select(User).where(
-            (User.username == form.username)
-            | (User.email == form.username)
-        )
-    )
+    result = await db.execute(select(User).where((User.username == form.username) | (User.email == form.username)))
     user = result.scalars().first()
     if not user or not verify_password(form.password, user.hashed_password):
         raise HTTPException(

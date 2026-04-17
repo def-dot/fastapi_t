@@ -1,9 +1,15 @@
 """SQLAlchemy Item 模型"""
 
+from typing import TYPE_CHECKING
+
 from sqlalchemy import ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from apps.core.database import Base
+from apps.models.user import User
+
+if TYPE_CHECKING:
+    from apps.models.user import User
 
 
 class Item(Base):
