@@ -33,6 +33,8 @@ pythonpath = ["."]
 
 [tool.setuptools.packages.find]
 include = ["apps*"]
+
+[tool.ruff]
 target-version = "py312"
 line-length = 120
 
