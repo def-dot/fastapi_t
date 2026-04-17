@@ -1,72 +1,82 @@
 """Pydantic 请求/响应 Schema"""
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
 
 class Page(BaseModel, Generic[T]):
-    items: list[T]
-    total: int
+    """分页响应"""
+    items: list[T] = Field(description="数据列表")
+    total: int = Field(description="总数量")
 
 
 # ---------- Auth ----------
 class Token(BaseModel):
-    access_token: str
-    refresh_token: str
-    token_type: str = "bearer"
+    """JWT Token 响应"""
+    access_token: str = Field(description="访问令牌")
+    refresh_token: str = Field(description="刷新令牌")
+    token_type: str = Field(default="bearer", description="令牌类型")
 
 
 class TokenData(BaseModel):
     username: str | None = None
 
 
-# ---------- User ----------
 class UserCreate(BaseModel):
-    username: str
-    email: EmailStr
-    password: str
+    """注册请求"""
+    username: str = Field(description="用户名", examples=["alice"])
+    email: EmailStr = Field(description="邮箱", examples=["alice@example.com"])
+    password: str = Field(description="密码", examples=["secret123"])
 
 
 class LoginRequest(BaseModel):
-    user: str
-    password: str
+    """登录请求 - 支持用户名或邮箱"""
+    username: str = Field(description="用户名或邮箱", examples=["alice"])
+    password: str = Field(description="密码", examples=["secret123"])
 
 
 class RefreshTokenRequest(BaseModel):
-    refresh_token: str
+    """刷新令牌请求"""
+    refresh_token: str = Field(description="刷新令牌")
 
 
+# ---------- User ----------
 class UserUpdate(BaseModel):
-    email: EmailStr | None = None
-    password: str | None = None
+    """更新用户信息"""
+    email: EmailStr | None = Field(default=None, description="新邮箱")
+    password: str | None = Field(default=None, description="新密码")
 
 
 class UserOut(BaseModel):
-    id: int
-    username: str
-    email: str
-    is_active: bool
+    """用户信息响应"""
+    id: int = Field(description="用户 ID")
+    username: str = Field(description="用户名")
+    email: str = Field(description="邮箱")
+    is_active: bool = Field(description="是否激活")
 
     model_config = {"from_attributes": True}
 
 
 # ---------- Item ----------
 class ItemCreate(BaseModel):
-    title: str
-    description: str | None = None
+    """创建 Item"""
+    title: str = Field(description="标题", examples=["My Item"])
+    description: str | None = Field(default=None, description="描述", examples=["Some details"])
 
 
 class ItemUpdate(BaseModel):
-    title: str | None = None
-    description: str | None = None
+    """更新 Item"""
+    title: str | None = Field(default=None, description="标题")
+    description: str | None = Field(default=None, description="描述")
 
 
 class ItemOut(BaseModel):
-    id: int
-    title: str
-    description: str | None
-    owner_id: int
+    """Item 响应"""
+    id: int = Field(description="Item ID")
+    title: str = Field(description="标题")
+    description: str | None = Field(description="描述")
+    owner_id: int = Field(description="所有者 ID")
 
     model_config = {"from_attributes": True}

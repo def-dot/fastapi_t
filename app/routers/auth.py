@@ -55,8 +55,8 @@ async def login(user_in: LoginRequest, db: AsyncSession = Depends(get_db)):
     """登录获取 JWT Token - 支持用户名或邮箱登录"""
     result = await db.execute(
         select(User).where(
-            (User.username == user_in.user)
-            | (User.email == user_in.user)
+            (User.username == user_in.username)
+            | (User.email == user_in.username)
         )
     )
     user = result.scalars().first()
