@@ -62,13 +62,13 @@ async def update_current_user(
     return ResponseBase(data=current_user)
 
 
-@router.delete("/me", status_code=status.HTTP_204_NO_CONTENT, response_model=ResponseBase[None], responses={**RESPONSE_401})
+@router.delete("/me", response_model=ResponseBase[None], responses={**RESPONSE_401})
 async def delete_current_user(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-) -> None:
+) -> Any:
     """删除当前用户"""
     await db.delete(current_user)
     await db.commit()
     logger.info("User deleted: %s", current_user.username)
-    return ResponseBase()
+    return ResponseBase(msg="删除成功")

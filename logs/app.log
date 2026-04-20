@@ -741,3 +741,212 @@ WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind 
 2026-04-20 16:34:07 | INFO     | sqlalchemy.engine.Engine | COMMIT
 2026-04-20 16:34:07 | INFO     | app.main | FastAPI Demo started — DB tables created
 2026-04-20 16:34:25 | INFO     | app.main | Shutting down...
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00062s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | [cached since 0.005104s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:39:36 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:39:36 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:40:10 | INFO     | app.main | Shutting down...
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00123s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | [cached since 0.01102s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:40:11 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:40:11 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:40:19 | INFO     | app.main | Shutting down...
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00118s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | [cached since 0.009444s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:40:20 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:40:20 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:40:44 | INFO     | app.main | Shutting down...
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00057s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | [cached since 0.006879s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:40:45 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:40:45 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:41:25 | INFO     | app.main | Shutting down...
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00056s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | [cached since 0.006511s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:41:26 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:41:26 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:41:28 | INFO     | app.main | Shutting down...
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00182s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | [cached since 0.01236s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:41:29 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:41:29 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:41:46 | INFO     | app.main | Shutting down...
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00060s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | [cached since 0.004318s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:41:47 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:41:47 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:42:41 | INFO     | app.main | Shutting down...
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00079s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | [cached since 0.004898s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:42:42 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:42:42 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:42:46 | INFO     | app.core.middleware | 127.0.0.1 DELETE /api/users/me/ -> 307 (0.001s), payload: {'ip': '127.0.0.1', 'method': 'DELETE', 'path': '/api/users/me/', 'params': '-', 'status': 307, 'latency': '0.001s'}
+2026-04-20 16:42:46 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:42:46 | INFO     | sqlalchemy.engine.Engine | SELECT users.id, users.username, users.email, users.hashed_password, users.is_active 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-20 16:42:46 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00060s] ('alice',)
+2026-04-20 16:42:46 | INFO     | sqlalchemy.engine.Engine | ROLLBACK
+2026-04-20 16:42:46 | ERROR    | app.core.middleware | 127.0.0.1 DELETE /api/users/me -> 401 (0.014s), payload: {'ip': '127.0.0.1', 'method': 'DELETE', 'path': '/api/users/me', 'params': '-', 'status': 401, 'latency': '0.014s', 'error': '用户不存在'}
+2026-04-20 16:42:48 | INFO     | app.core.middleware | 127.0.0.1 DELETE /api/users/me/ -> 307 (0.001s), payload: {'ip': '127.0.0.1', 'method': 'DELETE', 'path': '/api/users/me/', 'params': '-', 'status': 307, 'latency': '0.001s'}
+2026-04-20 16:42:48 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:42:48 | INFO     | sqlalchemy.engine.Engine | SELECT users.id, users.username, users.email, users.hashed_password, users.is_active 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-20 16:42:48 | INFO     | sqlalchemy.engine.Engine | [cached since 2.783s ago] ('alice',)
+2026-04-20 16:42:48 | INFO     | sqlalchemy.engine.Engine | ROLLBACK
+2026-04-20 16:42:48 | ERROR    | app.core.middleware | 127.0.0.1 DELETE /api/users/me -> 401 (0.005s), payload: {'ip': '127.0.0.1', 'method': 'DELETE', 'path': '/api/users/me', 'params': '-', 'status': 401, 'latency': '0.005s', 'error': '用户不存在'}
+2026-04-20 16:43:13 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:43:13 | INFO     | sqlalchemy.engine.Engine | SELECT users.id, users.username, users.email, users.hashed_password, users.is_active 
+FROM users 
+WHERE users.username = $1::VARCHAR OR users.email = $2::VARCHAR
+2026-04-20 16:43:13 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00042s] ('zhangsan5', 'zhangsan5')
+2026-04-20 16:43:13 | INFO     | app.routers.auth | User logged in: zhangsan5
+2026-04-20 16:43:13 | INFO     | sqlalchemy.engine.Engine | ROLLBACK
+2026-04-20 16:43:13 | INFO     | app.core.middleware | 127.0.0.1 POST /api/auth/login -> 200 (0.199s), payload: {'ip': '127.0.0.1', 'method': 'POST', 'path': '/api/auth/login', 'params': '{"username": "zhangsan5", "password": "***"}', 'status': 200, 'latency': '0.199s'}
+2026-04-20 16:43:21 | INFO     | app.core.middleware | 127.0.0.1 DELETE /api/users/me/ -> 307 (0.000s), payload: {'ip': '127.0.0.1', 'method': 'DELETE', 'path': '/api/users/me/', 'params': '-', 'status': 307, 'latency': '0.000s'}
+2026-04-20 16:43:21 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:43:21 | INFO     | sqlalchemy.engine.Engine | SELECT users.id, users.username, users.email, users.hashed_password, users.is_active 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-20 16:43:21 | INFO     | sqlalchemy.engine.Engine | [cached since 35.59s ago] ('alice',)
+2026-04-20 16:43:21 | INFO     | sqlalchemy.engine.Engine | ROLLBACK
+2026-04-20 16:43:21 | ERROR    | app.core.middleware | 127.0.0.1 DELETE /api/users/me -> 401 (0.008s), payload: {'ip': '127.0.0.1', 'method': 'DELETE', 'path': '/api/users/me', 'params': '-', 'status': 401, 'latency': '0.008s', 'error': '用户不存在'}
+2026-04-20 16:43:36 | INFO     | app.core.middleware | 127.0.0.1 DELETE /api/users/me/ -> 307 (0.000s), payload: {'ip': '127.0.0.1', 'method': 'DELETE', 'path': '/api/users/me/', 'params': '-', 'status': 307, 'latency': '0.000s'}
+2026-04-20 16:43:36 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:43:36 | INFO     | sqlalchemy.engine.Engine | SELECT users.id, users.username, users.email, users.hashed_password, users.is_active 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-20 16:43:36 | INFO     | sqlalchemy.engine.Engine | [cached since 50.36s ago] ('zhangsan5',)
+2026-04-20 16:43:36 | INFO     | sqlalchemy.engine.Engine | SELECT items.id AS items_id, items.title AS items_title, items.description AS items_description, items.owner_id AS items_owner_id 
+FROM items 
+WHERE $1::INTEGER = items.owner_id
+2026-04-20 16:43:36 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00089s] (3,)
+2026-04-20 16:43:36 | INFO     | sqlalchemy.engine.Engine | DELETE FROM users WHERE users.id = $1::INTEGER
+2026-04-20 16:43:36 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00059s] (3,)
+2026-04-20 16:43:36 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:43:36 | INFO     | app.routers.users | User deleted: zhangsan5
+2026-04-20 16:43:36 | INFO     | app.core.middleware | 127.0.0.1 DELETE /api/users/me -> 200 (0.028s), payload: {'ip': '127.0.0.1', 'method': 'DELETE', 'path': '/api/users/me', 'params': '-', 'status': 200, 'latency': '0.028s'}
+2026-04-20 16:44:24 | INFO     | app.main | Shutting down...
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | select pg_catalog.version()
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | select current_schema()
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | show standard_conforming_strings
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | [raw sql] ()
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | BEGIN (implicit)
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | [generated in 0.00054s] ('users', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = $1::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[$2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != $7::VARCHAR
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | [cached since 0.003723s ago] ('items', 'r', 'p', 'f', 'v', 'm', 'pg_catalog')
+2026-04-20 16:44:25 | INFO     | sqlalchemy.engine.Engine | COMMIT
+2026-04-20 16:44:25 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 16:44:39 | INFO     | app.main | Shutting down...

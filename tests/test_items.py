@@ -92,7 +92,7 @@ class TestItems:
         item_id = create_resp.json()["data"]["id"]
 
         resp = await client.delete(f"/api/items/{item_id}", headers=auth_headers)
-        assert resp.status_code == 204
+        assert resp.status_code == 200
 
         # 确认已删除
         get_resp = await client.get(f"/api/items/{item_id}", headers=auth_headers)

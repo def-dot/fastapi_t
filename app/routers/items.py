@@ -102,7 +102,6 @@ async def update_item(
 
 @router.delete(
     "/{item_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
     response_model=ResponseBase[None],
     responses={**RESPONSE_401, **RESPONSE_403, **RESPONSE_404},
 )
@@ -110,7 +109,7 @@ async def delete_item(
     item_id: int,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
-) -> None:
+) -> Any:
     """删除 Item（仅所有者可操作）"""
     item = await db.get(Item, item_id)
     if not item:
@@ -121,4 +120,4 @@ async def delete_item(
     await db.delete(item)
     await db.commit()
     logger.info("Item deleted: id=%d by user=%s", item_id, current_user.username)
-    return ResponseBase()
+    return ResponseBase(msg="删除成功")
