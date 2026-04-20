@@ -5,8 +5,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from sqlmodel import SQLModel
+
 from app.core.config import settings
-from app.core.database import Base, engine
+from app.core.database import engine
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import get_logger, setup_logging
 from app.core.middleware import access_log_middleware
@@ -22,7 +24,7 @@ async def lifespan(app: FastAPI):
     setup_logging()
     try:
         async with engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
+            await conn.run_sync(SQLModel.metadata.create_all)
         logger.info("%s started — DB tables created", settings.APP_NAME)
     except Exception:
         logger.critical("Failed to initialize database", exc_info=True)

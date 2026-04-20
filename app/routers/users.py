@@ -2,20 +2,18 @@
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.future import select
+from sqlmodel import col, select
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.core.database import get_db
 from app.core.logging import get_logger
 from app.core.security import get_current_user, hash_password
-from app.models.user import User
+from app.models.user import User, UserOut, UserUpdate
 from app.schemas.schemas import (
     RESPONSE_401,
     RESPONSE_404,
     Page,
     ResponseBase,
-    UserOut,
-    UserUpdate,
 )
 
 logger = get_logger(__name__)
@@ -31,10 +29,9 @@ async def read_current_user(current_user: User = Depends(get_current_user)):
 @router.get("/", response_model=ResponseBase[Page[UserOut]], responses={**RESPONSE_401})
 async def list_users(skip: int = 0, limit: int = 20, db: AsyncSession = Depends(get_db)):
     """获取用户列表（分页）"""
-    total_result = await db.execute(select(func.count(User.id)))
-    total = total_result.scalar_one()
-    result = await db.execute(select(User).offset(skip).limit(limit))
-    return ResponseBase(data=Page(items=result.scalars().all(), total=total))
+    total = (await db.exec(select(func.count(col(User.id))))).one()
+    users = (await db.exec(select(User).offset(skip).limit(limit))).all()
+    return ResponseBase(data=Page(items=users, total=total))
 
 
 @router.get("/{user_id}", response_model=ResponseBase[UserOut], responses={**RESPONSE_401, **RESPONSE_404})

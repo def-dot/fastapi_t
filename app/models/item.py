@@ -1,23 +1,44 @@
-"""SQLAlchemy Item 模型"""
+"""SQLModel Item 模型"""
 
-from typing import TYPE_CHECKING
+from pydantic import BaseModel, Field
+from sqlmodel import Field as SQLField, Relationship, SQLModel
 
-from sqlalchemy import ForeignKey, String, Text
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-
-from app.core.database import Base
 from app.models.user import User
 
-if TYPE_CHECKING:
-    from app.models.user import User
 
-
-class Item(Base):
+# ---------- 数据库表模型 ----------
+class Item(SQLModel, table=True):
     __tablename__ = "items"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    title: Mapped[str] = mapped_column(String(100), nullable=False)
-    description: Mapped[str | None] = mapped_column(Text, nullable=True)
-    owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    id: int | None = SQLField(default=None, primary_key=True)
+    title: str = SQLField(max_length=100)
+    description: str | None = SQLField(default=None)
+    owner_id: int = SQLField(foreign_key="users.id")
 
-    owner: Mapped["User"] = relationship(back_populates="items")
+    owner: User = Relationship(back_populates="items")
+
+
+# ---------- 请求/响应 Schema ----------
+class ItemCreate(BaseModel):
+    """创建 Item"""
+
+    title: str = Field(description="标题")
+    description: str | None = Field(default=None, description="描述")
+
+
+class ItemUpdate(BaseModel):
+    """更新 Item"""
+
+    title: str | None = Field(default=None, description="标题")
+    description: str | None = Field(default=None, description="描述")
+
+
+class ItemOut(BaseModel):
+    """Item 信息"""
+
+    id: int = Field(description="Item ID")
+    title: str = Field(description="标题")
+    description: str | None = Field(description="描述")
+    owner_id: int = Field(description="所有者 ID")
+
+    model_config = {"from_attributes": True}

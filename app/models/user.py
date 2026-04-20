@@ -1,23 +1,48 @@
-"""SQLAlchemy 用户模型"""
+"""SQLModel 用户模型"""
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-
-from app.core.database import Base
+from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
     from app.models.item import Item
 
 
-class User(Base):
+# ---------- 数据库表模型 ----------
+class User(SQLModel, table=True):
     __tablename__ = "users"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    username: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
-    email: Mapped[str] = mapped_column(String(120), unique=True, index=True, nullable=False)
-    hashed_password: Mapped[str] = mapped_column(String(128), nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    id: int | None = Field(default=None, primary_key=True)
+    username: str = Field(max_length=50, unique=True, index=True)
+    email: str = Field(max_length=120, unique=True, index=True)
+    hashed_password: str = Field(max_length=128)
+    is_active: bool = Field(default=True)
 
-    items: Mapped[list["Item"]] = relationship(back_populates="owner", cascade="all, delete-orphan")
+    items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
+
+
+# ---------- 请求/响应 Schema ----------
+class UserCreate(SQLModel):
+    """注册请求"""
+
+    username: str = Field(description="用户名")
+    email: str = Field(description="邮箱")
+    password: str = Field(description="密码")
+
+
+class UserUpdate(SQLModel):
+    """更新用户信息"""
+
+    email: str | None = Field(default=None, description="新邮箱")
+    password: str | None = Field(default=None, description="新密码")
+
+
+class UserOut(SQLModel):
+    """用户信息"""
+
+    id: int = Field(description="用户 ID")
+    username: str = Field(description="用户名")
+    email: str = Field(description="邮箱")
+    is_active: bool = Field(description="是否激活")
+
+    model_config = {"from_attributes": True}

@@ -2,8 +2,8 @@
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.future import select
+from sqlmodel import select
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.core.database import get_db
 from app.core.logging import get_logger
@@ -14,7 +14,7 @@ from app.core.security import (
     hash_password,
     verify_password,
 )
-from app.models.user import User
+from app.models.user import User, UserCreate, UserOut
 from app.schemas.schemas import (
     RESPONSE_400,
     RESPONSE_401,
@@ -22,8 +22,6 @@ from app.schemas.schemas import (
     RefreshTokenRequest,
     ResponseBase,
     Token,
-    UserCreate,
-    UserOut,
 )
 
 logger = get_logger(__name__)
@@ -43,11 +41,11 @@ def send_welcome_email(email: str, username: str):
 )
 async def register(user_in: UserCreate, background_tasks: BackgroundTasks, db: AsyncSession = Depends(get_db)):
     """注册新用户"""
-    result = await db.execute(select(User).where(User.username == user_in.username))
-    if result.scalars().first():
+    result = await db.exec(select(User).where(User.username == user_in.username))
+    if result.first():
         raise HTTPException(status_code=400, detail="用户名已存在")
-    result = await db.execute(select(User).where(User.email == user_in.email))
-    if result.scalars().first():
+    result = await db.exec(select(User).where(User.email == user_in.email))
+    if result.first():
         raise HTTPException(status_code=400, detail="邮箱已注册")
 
     user = User(
@@ -71,8 +69,10 @@ async def register(user_in: UserCreate, background_tasks: BackgroundTasks, db: A
 )
 async def login(form: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
     """登录获取 JWT Token - 支持用户名或邮箱登录（OAuth2 兼容）"""
-    result = await db.execute(select(User).where((User.username == form.username) | (User.email == form.username)))
-    user = result.scalars().first()
+    result = await db.exec(
+        select(User).where((User.username == form.username) | (User.email == form.username))
+    )
+    user = result.first()
     if not user or not verify_password(form.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

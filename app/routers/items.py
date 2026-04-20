@@ -2,21 +2,18 @@
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.future import select
+from sqlmodel import col, select
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.core.database import get_db
 from app.core.logging import get_logger
 from app.core.security import get_current_user
-from app.models.item import Item
+from app.models.item import Item, ItemCreate, ItemOut, ItemUpdate
 from app.models.user import User
 from app.schemas.schemas import (
     RESPONSE_401,
     RESPONSE_403,
     RESPONSE_404,
-    ItemCreate,
-    ItemOut,
-    ItemUpdate,
     Page,
     ResponseBase,
 )
@@ -46,10 +43,9 @@ async def create_item(
 @router.get("/", response_model=ResponseBase[Page[ItemOut]], responses={**RESPONSE_401})
 async def list_items(skip: int = 0, limit: int = 20, db: AsyncSession = Depends(get_db)):
     """获取 Item 列表（分页）"""
-    total_result = await db.execute(select(func.count(Item.id)))
-    total = total_result.scalar_one()
-    result = await db.execute(select(Item).offset(skip).limit(limit))
-    return ResponseBase(data=Page(items=result.scalars().all(), total=total))
+    total = (await db.exec(select(func.count(col(Item.id))))).one()
+    items = (await db.exec(select(Item).offset(skip).limit(limit))).all()
+    return ResponseBase(data=Page(items=items, total=total))
 
 
 @router.get("/me", response_model=ResponseBase[Page[ItemOut]], responses={**RESPONSE_401})
@@ -61,10 +57,9 @@ async def list_my_items(
 ):
     """获取当前用户的 Item 列表"""
     q = select(Item).where(Item.owner_id == current_user.id)
-    total_result = await db.execute(select(func.count(Item.id)).where(Item.owner_id == current_user.id))
-    total = total_result.scalar_one()
-    result = await db.execute(q.offset(skip).limit(limit))
-    return ResponseBase(data=Page(items=result.scalars().all(), total=total))
+    total = (await db.exec(select(func.count(col(Item.id))).where(Item.owner_id == current_user.id))).one()
+    items = (await db.exec(q.offset(skip).limit(limit))).all()
+    return ResponseBase(data=Page(items=items, total=total))
 
 
 @router.get("/{item_id}", response_model=ResponseBase[ItemOut], responses={**RESPONSE_401, **RESPONSE_404})
