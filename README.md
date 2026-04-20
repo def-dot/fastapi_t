@@ -128,6 +128,9 @@ Swagger 使用：点击 Authorize → 输入用户名/密码 → 自动获取 to
 
 ```bash
 pytest tests/ -v
+
+# 带覆盖率报告
+pytest tests/ -v --cov
 ```
 
 ### 7. 代码检查
