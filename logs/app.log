@@ -475,3 +475,99 @@ ConnectionRefusedError: [WinError 1225] 远程计算机拒绝网络连接。
 2026-04-20 00:05:28 | INFO     | app.routers.auth | User registered: defdot
 2026-04-20 00:05:28 | INFO     | app.core.middleware | 127.0.0.1 POST /api/auth/register -> 201 (0.196s), payload: {'ip': '127.0.0.1', 'method': 'POST', 'path': '/api/auth/register', 'params': '{"username": "defdot", "email": "defdot@test.com", "password": "***"}', 'status': 201, 'latency': '0.196s'}
 2026-04-20 00:05:28 | INFO     | app.routers.auth | Welcome email sent to defdot@test.com for user defdot
+2026-04-20 09:02:50 | CRITICAL | app.main | Failed to initialize database
+Traceback (most recent call last):
+  File "D:\RAG\fastapi_t\app\main.py", line 24, in lifespan
+    async with engine.begin() as conn:
+               ^^^^^^^^^^^^^^
+  File "d:\Programs\Python\Python312\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 1066, in begin
+    async with conn:
+               ^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\base.py", line 121, in __aenter__
+    return await self.start(is_ctxmanager=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\engine.py", line 274, in start
+    await greenlet_spawn(self.sync_engine.connect)
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3274, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 146, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3298, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1264, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 713, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 179, in _do_get
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 675, in __init__
+    self.__connect()
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 901, in __connect
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 897, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 625, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 961, in connect
+    await_only(creator_fn(*arg, **kw)),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\asyncpg\connection.py", line 2421, in connect
+    return await connect_utils._connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\asyncpg\connect_utils.py", line 1075, in _connect
+    raise last_error or exceptions.TargetServerAttributeNotMatched(
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\asyncpg\connect_utils.py", line 1049, in _connect
+    conn = await _connect_addr(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\asyncpg\connect_utils.py", line 886, in _connect_addr
+    return await __connect_addr(params, True, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\asyncpg\connect_utils.py", line 931, in __connect_addr
+    tr, pr = await connector
+             ^^^^^^^^^^^^^^^
+  File "D:\RAG\fastapi_t\.venv\Lib\site-packages\asyncpg\connect_utils.py", line 802, in _create_ssl_connection
+    tr, pr = await loop.create_connection(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Programs\Python\Python312\Lib\asyncio\base_events.py", line 1140, in create_connection
+    raise OSError('Multiple exceptions: {}'.format(
+OSError: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5432, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5432)
+2026-04-20 09:03:17 | INFO     | app.main | FastAPI Demo started — DB tables created
+2026-04-20 09:03:29 | INFO     | __main__ | FastAPI Demo started — DB tables created
+2026-04-20 09:03:32 | INFO     | __main__ | Shutting down...

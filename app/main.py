@@ -62,3 +62,9 @@ app.include_router(items.router)
 @app.get("/health", tags=["系统"], response_model=ResponseBase[dict])
 async def health_check():
     return ResponseBase(data={"status": "ok"})
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
