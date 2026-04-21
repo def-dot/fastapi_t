@@ -41,6 +41,7 @@ async def setup_db():
 @pytest_asyncio.fixture
 async def client() -> AsyncGenerator[AsyncClient, None]:
     """异步 HTTP 测试客户端"""
+    print(f"\nDEBUG: app.lifespan_context is {app.router.lifespan_context}")
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
         yield c
 
