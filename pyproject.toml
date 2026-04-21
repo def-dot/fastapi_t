@@ -65,6 +65,7 @@ exclude = ["alembic"]
 [tool.coverage.run]
 source = ["app"]
 omit = ["app/alembic/*"]
+concurrency = ["greenlet", "thread"]
 
 [tool.coverage.report]
 show_missing = true
