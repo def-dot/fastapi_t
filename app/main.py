@@ -5,7 +5,6 @@ from typing import Any
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from sqlmodel import SQLModel
 
 from app.core.config import settings

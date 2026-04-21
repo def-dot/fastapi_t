@@ -1,7 +1,8 @@
 """SQLModel Item 模型"""
 
 from pydantic import BaseModel, Field
-from sqlmodel import Field as SQLField, Relationship, SQLModel
+from sqlmodel import Field as SQLField
+from sqlmodel import Relationship, SQLModel
 
 from app.models.user import User
 

@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     LOG_DIR: str = "logs"
 
     # 数据库
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:sj1107@localhost:5455/fastapi_demo"
+    DATABASE_URL: str = "postgresql+asyncpg://postgres:sj1107@localhost:5432/fastapi_demo"
 
     # JWT
     SECRET_KEY: str = "change-me-to-a-random-secret-in-production"

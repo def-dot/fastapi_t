@@ -2,12 +2,10 @@
 
 from typing import Any
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi import APIRouter, BackgroundTasks, HTTPException, status
 from sqlmodel import select
-from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.core.database import get_db
+from app.core.deps import OAuth2Form, SessionDep
 from app.core.logging import get_logger
 from app.core.security import (
     create_access_token,
@@ -41,7 +39,7 @@ def send_welcome_email(email: str, username: str) -> None:
     status_code=status.HTTP_201_CREATED,
     responses={**RESPONSE_400, **RESPONSE_422},
 )
-async def register(user_in: UserCreate, background_tasks: BackgroundTasks, db: AsyncSession = Depends(get_db)) -> Any:
+async def register(user_in: UserCreate, background_tasks: BackgroundTasks, db: SessionDep) -> Any:
     """注册新用户"""
     result = await db.exec(select(User).where(User.username == user_in.username))
     if result.first():
@@ -69,11 +67,9 @@ async def register(user_in: UserCreate, background_tasks: BackgroundTasks, db: A
     response_model=Token,
     responses={**RESPONSE_401},
 )
-async def login(form: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)) -> Any:
+async def login(form: OAuth2Form, db: SessionDep) -> Any:
     """登录获取 JWT Token - 支持用户名或邮箱登录（OAuth2 兼容）"""
-    result = await db.exec(
-        select(User).where((User.username == form.username) | (User.email == form.username))
-    )
+    result = await db.exec(select(User).where((User.username == form.username) | (User.email == form.username)))
     user = result.first()
     if not user or not verify_password(form.password, user.hashed_password):
         raise HTTPException(

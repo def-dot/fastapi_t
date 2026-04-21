@@ -5,13 +5,11 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func
 from sqlmodel import col, select
-from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.core.database import get_db
+from app.core.deps import CurrentUser, SessionDep
 from app.core.logging import get_logger
 from app.core.security import get_current_user
 from app.models.item import Item, ItemCreate, ItemOut, ItemUpdate
-from app.models.user import User
 from app.schemas.schemas import (
     RESPONSE_401,
     RESPONSE_403,
@@ -30,9 +28,7 @@ router = APIRouter(prefix="/api/items", tags=["Item"], dependencies=[Depends(get
     status_code=status.HTTP_201_CREATED,
     responses={**RESPONSE_401},
 )
-async def create_item(
-    item_in: ItemCreate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
-) -> Any:
+async def create_item(item_in: ItemCreate, current_user: CurrentUser, db: SessionDep) -> Any:
     """创建 Item"""
     item = Item(**item_in.model_dump(), owner_id=current_user.id)
     db.add(item)
@@ -43,7 +39,7 @@ async def create_item(
 
 
 @router.get("/", response_model=ResponseBase[Page[ItemOut]], responses={**RESPONSE_401})
-async def list_items(skip: int = 0, limit: int = 20, db: AsyncSession = Depends(get_db)) -> Any:
+async def list_items(db: SessionDep, skip: int = 0, limit: int = 20) -> Any:
     """获取 Item 列表（分页）"""
     total = (await db.exec(select(func.count(col(Item.id))))).one()
     items = (await db.exec(select(Item).offset(skip).limit(limit))).all()
@@ -52,10 +48,10 @@ async def list_items(skip: int = 0, limit: int = 20, db: AsyncSession = Depends(
 
 @router.get("/me", response_model=ResponseBase[Page[ItemOut]], responses={**RESPONSE_401})
 async def list_my_items(
+    current_user: CurrentUser,
+    db: SessionDep,
     skip: int = 0,
     limit: int = 20,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
 ) -> Any:
     """获取当前用户的 Item 列表"""
     q = select(Item).where(Item.owner_id == current_user.id)
@@ -65,7 +61,7 @@ async def list_my_items(
 
 
 @router.get("/{item_id}", response_model=ResponseBase[ItemOut], responses={**RESPONSE_401, **RESPONSE_404})
-async def read_item(item_id: int, db: AsyncSession = Depends(get_db)) -> Any:
+async def read_item(item_id: int, db: SessionDep) -> Any:
     """获取单个 Item"""
     item = await db.get(Item, item_id)
     if not item:
@@ -81,8 +77,8 @@ async def read_item(item_id: int, db: AsyncSession = Depends(get_db)) -> Any:
 async def update_item(
     item_id: int,
     item_in: ItemUpdate,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
+    current_user: CurrentUser,
+    db: SessionDep,
 ) -> Any:
     """更新 Item（仅所有者可操作）"""
     item = await db.get(Item, item_id)
@@ -107,8 +103,8 @@ async def update_item(
 )
 async def delete_item(
     item_id: int,
-    current_user: User = Depends(get_current_user),
-    db: AsyncSession = Depends(get_db),
+    current_user: CurrentUser,
+    db: SessionDep,
 ) -> Any:
     """删除 Item（仅所有者可操作）"""
     item = await db.get(Item, item_id)
