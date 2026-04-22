@@ -92,7 +92,7 @@ python -m app.main
 gunicorn -c gunicorn.conf.py app.main:app
 ```
 
-**Docker 部署（PostgreSQL + Web）：**
+**Docker 部署（Traefik + PostgreSQL + Web）：**
 
 ```bash
 # 构建并启动
@@ -108,10 +108,14 @@ docker compose down
 docker compose down -v
 ```
 
+服务端口：
+- **http://localhost:80** — 应用（通过 Traefik 反向代理）
+- **http://localhost:8080** — Traefik Dashboard
+
 ### 4. 验证启动
 
 ```bash
-curl http://localhost:8000/health
+curl http://localhost:80/health
 # {"code":200,"msg":"ok","data":{"status":"ok"}}
 ```
 
@@ -119,8 +123,8 @@ curl http://localhost:8000/health
 
 | 地址 | 说明 |
 |------|------|
-| http://localhost:8000/docs | Swagger UI（可交互测试） |
-| http://localhost:8000/redoc | ReDoc（只读文档） |
+| http://localhost:80/docs | Swagger UI（可交互测试） |
+| http://localhost:80/redoc | ReDoc（只读文档） |
 
 Swagger 使用：点击 Authorize → 输入用户名/密码 → 自动获取 token → 测试认证接口。
 

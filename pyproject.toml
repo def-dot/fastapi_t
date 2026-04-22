@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "FastAPI Demo — 用户认证与 CRUD 示例项目"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi==0.115.12",
+    "fastapi[standard]==0.115.12",
     "uvicorn[standard]==0.34.2",
     "gunicorn==23.0.0",
     "sqlmodel==0.0.24",

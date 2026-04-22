@@ -1,5 +1,7 @@
 FROM python:3.12-slim
 
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
 # 系统依赖（libpq for psycopg2, gcc for cffi）
@@ -19,4 +21,4 @@ RUN mkdir -p logs
 
 EXPOSE 8000
 
-CMD ["gunicorn", "-c", "gunicorn.conf.py", "app.main:app"]
+CMD ["fastapi", "run", "--workers", "4", "app/main.py"]

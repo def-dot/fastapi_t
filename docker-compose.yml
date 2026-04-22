@@ -1,6 +1,19 @@
 version: "3.9"
 
 services:
+  traefik:
+    image: traefik:v3.3
+    command:
+      - "--api.insecure=true"              # 开发环境启用 Dashboard
+      - "--providers.docker=true"          # 启用 Docker provider
+      - "--providers.docker.exposedbydefault=false"  # 仅路由带 label 的服务
+      - "--entrypoints.web.address=:80"    # HTTP 入口
+    ports:
+      - "80:80"       # HTTP
+      - "8080:8080"   # Traefik Dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   db:
     image: postgres:16-alpine
     environment:
@@ -9,8 +22,6 @@ services:
       POSTGRES_DB: fastapi_demo
     volumes:
       - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -24,13 +35,16 @@ services:
       SECRET_KEY: change-me-to-a-random-secret-in-production
       LOG_LEVEL: INFO
       WORKERS: 4
-    ports:
-      - "8000:8000"
     volumes:
       - ./logs:/app/logs
     depends_on:
       db:
         condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fastapi.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.fastapi.entrypoints=web"
+      - "traefik.http.services.fastapi.loadbalancer.server.port=8000"
 
 volumes:
   pgdata:
