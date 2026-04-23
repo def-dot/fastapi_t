@@ -12,9 +12,9 @@ WORKDIR /app
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-RUN -mount=type=cache,target=/root/.cache/uv \
-    -mount=type=bind,source=uv.lock,target=uv.lock \
-    -mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-install-workspace --package fastapi-demo
 
 COPY ./app .
@@ -24,9 +24,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --package fastapi-demo
 
-RUN mkdir -p logs
-
 EXPOSE 8000
 
-CMD ["fastapi", "run", "--workers", "4", "app/main.py"]
+CMD ["fastapi", "run", "--workers", "4", "main.py"]
 
