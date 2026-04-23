@@ -4,15 +4,15 @@ services:
   traefik:
     image: traefik:v3.3
     command:
-      - "--api.insecure=true"              # 开发环境启用 Dashboard
-      - "--providers.docker=true"          # 启用 Docker provider
-      - "--providers.docker.exposedbydefault=false"  # 仅路由带 label 的服务
-      - "--entrypoints.web.address=:80"    # HTTP 入口
+      - "--api.insecure=true"                    # 开发环境启用 Dashboard
+      - "--providers.file.directory=/etc/traefik"  # 文件配置
+      - "--providers.file.watch=true"              # 自动监测配置变化
+      - "--entrypoints.web.address=:80"            # HTTP 入口
     ports:
       - "80:80"       # HTTP
       - "8080:8080"   # Traefik Dashboard
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik:/etc/traefik
 
   db:
     image: postgres:16-alpine
@@ -40,11 +40,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.fastapi.rule=PathPrefix(`/`)"
-      - "traefik.http.routers.fastapi.entrypoints=web"
-      - "traefik.http.services.fastapi.loadbalancer.server.port=8000"
 
 volumes:
   pgdata:

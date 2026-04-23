@@ -1,0 +1,12 @@
+http:
+  routers:
+    fastapi:
+      rule: "PathPrefix(`/`)"
+      entryPoints:
+        - web
+      service: fastapi
+  services:
+    fastapi:
+      loadBalancer:
+        servers:
+          - url: "http://web:8000"
