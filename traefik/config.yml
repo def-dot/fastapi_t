@@ -15,9 +15,7 @@ http:
       entryPoints:
         - websecure
       service: fastapi
-      tls:
-        certFile: /certs/tls.crt
-        keyFile: /certs/tls.key
+      tls: {}
 
   middlewares:
     https-redirect:
@@ -32,4 +30,9 @@ http:
           - url: "http://web:8000"
 
 # 本地自签名证书配置（开发环境）
+tls:
+  certificates:
+    - certFile: /certs/tls.crt
+      keyFile: /certs/tls.key
+
 # 生产环境使用 Let's Encrypt 时，参考 HTTPS_SETUP.md 中的说明
