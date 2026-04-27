@@ -17,6 +17,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-install-workspace --package fastapi-demo
 
+
 COPY ./app .
 
 RUN --mount=type=cache,target=/root/.cache/uv \

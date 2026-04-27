@@ -3,6 +3,7 @@ version: "3.9"
 services:
   traefik:
     image: traefik:v3.3
+    restart: always
     command:
       - "--api.insecure=true"                    # 开发环境启用 Dashboard
       - "--providers.file.directory=/etc/traefik"  # 文件配置
@@ -21,6 +22,7 @@ services:
 
   db:
     image: postgres:16-alpine
+    restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER?variable not set}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD?variable not set}
@@ -35,6 +37,7 @@ services:
 
   web:
     build: .
+    restart: always
     environment:
       DATABASE_URL: ${DATABASE_URL}
       SECRET_KEY: ${SECRET_KEY}
@@ -45,6 +48,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+        restart: true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 volumes:
   pgdata:
