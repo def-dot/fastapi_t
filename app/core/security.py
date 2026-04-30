@@ -18,6 +18,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 pwd_hash = PasswordHash.recommended()
 
+ALGORITHM = "HS256"
 
 # ---------- 密码哈希 ----------
 def hash_password(password: str) -> str:
@@ -33,7 +34,7 @@ def create_access_token(data: dict[str, Any], expires_delta: timedelta | None = 
     to_encode = data.copy()
     expire = datetime.now(UTC) + (expires_delta or timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire, "type": "access"})
-    return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=ALGORITHM)
 
 
 def create_refresh_token(data: dict[str, Any], expires_delta: timedelta | None = None) -> str:
@@ -41,12 +42,12 @@ def create_refresh_token(data: dict[str, Any], expires_delta: timedelta | None =
     to_encode = data.copy()
     expire = datetime.now(UTC) + (expires_delta or timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS))
     to_encode.update({"exp": expire, "type": "refresh"})
-    return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=ALGORITHM)
 
 
 def decode_access_token(token: str) -> dict[str, Any]:
     try:
-        payload: dict[str, Any] = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        payload: dict[str, Any] = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
         return payload
     except jwt.PyJWTError:
         raise HTTPException(

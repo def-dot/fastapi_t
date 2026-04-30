@@ -7,12 +7,9 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.core.config import settings
 
-connect_args: dict[str, object] = {}
-
 engine = create_async_engine(
-    settings.DATABASE_URL,
-    connect_args=connect_args,
-    echo=settings.DEBUG,
+    str(settings.DATABASE_URL),
+    echo=settings.DB_DEBUG,
     pool_size=20,
     max_overflow=10,
 )

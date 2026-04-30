@@ -1,29 +1,43 @@
 """应用配置 - 使用 pydantic Settings 管理环境变量"""
 
+import os
+
+from pydantic import PostgresDsn, computed_field
 from pydantic_settings import BaseSettings
+
+APP_ENV = os.getenv("APP_ENV", "development")
 
 
 class Settings(BaseSettings):
-    # 应用
     APP_NAME: str = "FastAPI Demo"
-    DEBUG: bool = True
+    DB_DEBUG: bool = True
     LOG_LEVEL: str = "INFO"
-    LOG_DIR: str = "logs"
+    WORKERS: int = 4
 
-    # 数据库
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:sj1107@localhost:5455/fastapi_demo"
+    POSTGRES_SERVER: str
+    POSTGRES_PORT: int = 5432
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+
+    @computed_field
+    @property
+    def DATABASE_URL(self) -> PostgresDsn:
+        return PostgresDsn.build(
+            scheme="postgresql+asyncpg",
+            username=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            host=self.POSTGRES_SERVER,
+            port=self.POSTGRES_PORT,
+            path=self.POSTGRES_DB,
+        )
 
     # JWT
-    SECRET_KEY: str = "change-me-to-a-random-secret-in-production"
-    ALGORITHM: str = "HS256"
+    SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
-    # Gunicorn
-    WORKERS: int = 4
-    BIND: str = "0.0.0.0:8000"
-
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    model_config = {"env_file": f".env.{APP_ENV}", "env_file_encoding": "utf-8"}
 
 
 settings = Settings()

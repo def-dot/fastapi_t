@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+from pydantic import model_validator
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
@@ -28,6 +29,13 @@ class UserCreate(SQLModel):
     username: str = Field(description="用户名")
     email: str = Field(description="邮箱")
     password: str = Field(description="密码")
+    confirm_password: str = Field(description="确认密码")
+
+    @model_validator(mode="after")
+    def passwords_match(self) -> "UserCreate":
+        if self.password != self.confirm_password:
+            raise ValueError("密码和确认密码不一致")
+        return self
 
 
 class UserUpdate(SQLModel):

@@ -27,5 +27,5 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 EXPOSE 8000
 
-CMD ["fastapi", "run", "--workers", "4", "main.py"]
+CMD ["sh", "-c", "fastapi run --workers ${WORKERS:-4} main.py"]
 
