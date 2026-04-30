@@ -5,7 +5,6 @@ from typing import Any
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlmodel import SQLModel
 
 from app.core.config import settings
 from app.core.database import engine
@@ -23,9 +22,10 @@ logger = get_logger(__name__)
 async def lifespan(app: FastAPI) -> Any:
     setup_logging()
     try:
-        async with engine.begin() as conn:
-            await conn.run_sync(SQLModel.metadata.create_all)
-        logger.info("%s started — DB tables created", settings.APP_NAME)
+        import subprocess
+
+        subprocess.check_call(["alembic", "upgrade", "head"])
+        logger.info("%s started — DB migrated", settings.APP_NAME)
     except Exception:
         logger.critical("Failed to initialize database", exc_info=True)
         raise

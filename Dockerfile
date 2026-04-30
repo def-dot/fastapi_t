@@ -23,4 +23,3 @@ ENV PYTHONPATH=/
 EXPOSE 8000
 
 CMD ["sh", "-c", "fastapi run --workers ${WORKERS:-4} main.py"]
-

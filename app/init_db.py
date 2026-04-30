@@ -4,18 +4,13 @@ import asyncio
 
 from sqlmodel import select
 
-from app.core.database import AsyncSessionLocal, engine
+from app.core.database import AsyncSessionLocal
 from app.core.security import hash_password
 from app.models.item import Item  # noqa: F401 — 触发 SQLAlchemy 关联解析
 from app.models.user import User
 
 
-async def init_db() -> None:
-    from sqlmodel import SQLModel
-
-    async with engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.create_all)
-
+async def create_initial_data() -> None:
     async with AsyncSessionLocal() as db:
         result = await db.exec(select(User).where(User.username == "admin"))
         if not result.first():
@@ -32,4 +27,4 @@ async def init_db() -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(init_db())
+    asyncio.run(create_initial_data())
