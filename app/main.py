@@ -7,7 +7,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.core.database import engine
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import get_logger, setup_logging
 from app.core.middleware import access_log_middleware
@@ -15,6 +14,7 @@ from app.routers import auth, items, users
 from app.schemas.schemas import ResponseBase
 
 logger = get_logger(__name__)
+
 
 # ---------- lifespan：应用启动/关闭时执行 ----------
 @asynccontextmanager
