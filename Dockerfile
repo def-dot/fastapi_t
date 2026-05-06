@@ -18,6 +18,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-install-workspace --package fastapi-demo
 
 COPY ./app .
+COPY alembic.ini .
+COPY alembic ./alembic
 ENV PYTHONPATH=/
 
 EXPOSE 8000

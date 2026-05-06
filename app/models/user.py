@@ -18,6 +18,7 @@ class User(SQLModel, table=True):
     email: str = Field(max_length=120, unique=True, index=True)
     hashed_password: str = Field(max_length=128)
     is_active: bool = Field(default=True)
+    description: str | None = Field(default=None, max_length=255)
 
     items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
 

@@ -16,7 +16,6 @@ from app.schemas.schemas import ResponseBase
 
 logger = get_logger(__name__)
 
-
 # ---------- lifespan：应用启动/关闭时执行 ----------
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> Any:
