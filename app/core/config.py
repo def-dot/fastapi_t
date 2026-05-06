@@ -2,6 +2,7 @@
 
 import os
 
+from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings
 
 APP_ENV = os.getenv("APP_ENV", "development")
@@ -20,10 +21,14 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = ""
 
     @property
-    def DATABASE_URL(self) -> str:
-        return (
-            f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
-            f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+    def DATABASE_URL(self) -> PostgresDsn:
+        return PostgresDsn.build(
+            scheme="postgresql+asyncpg",
+            username=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            host=self.POSTGRES_SERVER,
+            port=self.POSTGRES_PORT,
+            path=self.POSTGRES_DB,
         )
 
     # JWT
