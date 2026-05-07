@@ -27,7 +27,7 @@ http:
     fastapi:
       loadBalancer:
         servers:
-          - url: "http://web:8000"
+          - url: "http://backend:8000"
 
 # 本地自签名证书配置（开发环境）
 tls:
