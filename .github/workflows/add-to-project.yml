@@ -13,3 +13,4 @@ jobs:
         uses: actions/add-to-project@244f685bbc3b7adfa8466e08b698b5577571133e
         with:
           project-url: https://github.com/users/def-dot/projects/1
+          github-token: ${{ secrets.PROJECTS_TOKEN }}
