@@ -5,8 +5,8 @@ http:
       rule: "PathPrefix(`/`)"
       entryPoints:
         - web
-      middlewares:
-        - https-redirect
+      #middlewares:
+      #  - https-redirect
       service: fastapi
 
     # HTTPS 路由
