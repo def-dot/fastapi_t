@@ -20,5 +20,5 @@ jobs:
       - run: docker compose down -v --remove-orphans
       - run: docker compose up -d --wait backend
       - name: Test backend is up
-        run: http://localhost:8000/health
+        run: https://localhost/health
       - run: docker compose down -v --remove-orphans
