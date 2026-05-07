@@ -5,8 +5,11 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: end-of-file-fixer
+        exclude: ^alembic/
       - id: trailing-whitespace
+        exclude: ^alembic/
       - id: check-added-large-files
+        exclude: ^alembic/
 
   - repo: local
     hooks:
