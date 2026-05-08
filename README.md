@@ -115,7 +115,7 @@ docker compose down -v
 ### 4. 验证启动
 
 ```bash
-curl http://localhost:80/health
+curl http://localhost/health
 # {"code":200,"msg":"ok","data":{"status":"ok"}}
 ```
 
