@@ -15,14 +15,14 @@ repos:
     hooks:
       - id: local-ruff-check
         name: ruff check
-        entry: uv run ruff check --force-exclude --fix --show-fixes
+        entry: uv run ruff check --fix --show-fixes
         require_serial: true
         language: system
         types: [python]
 
       - id: local-ruff-format
         name: ruff format
-        entry: uv run ruff format --force-exclude
+        entry: uv run ruff format
         require_serial: true
         language: unsupported
         types: [python]

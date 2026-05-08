@@ -99,5 +99,4 @@ async def access_log_middleware(
     else:
         log_func = logger.info
     log_func(f"{client_ip} {request.method} {path} -> {response.status_code} ({elapsed:.3f}s), payload: {log_payload}")
-    print("over")
     return response
