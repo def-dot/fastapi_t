@@ -14,6 +14,7 @@ class TestRegister:
                 "confirm_password": "secret123",
             },
         )
+        assert resp.status_code == 400
         assert resp.status_code == 201
         body = resp.json()
         assert body["code"] == 201
