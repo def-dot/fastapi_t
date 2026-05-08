@@ -191,3 +191,5 @@ alembic upgrade head
 # 回滚
 alembic downgrade -1
 ```
+
+log
