@@ -10,7 +10,7 @@ from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import get_logger, setup_logging
 from app.core.middleware import access_log_middleware
-from app.routers import auth, items, users
+from app.routers import auth, external_api, items, users
 from app.schemas.schemas import ResponseBase
 
 logger = get_logger(__name__)
@@ -57,6 +57,7 @@ app.middleware("http")(access_log_middleware)
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(items.router)
+app.include_router(external_api.router)
 
 
 # ---------- 健康检查 ----------
