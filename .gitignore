@@ -3,9 +3,8 @@ __pycache__/
 .env.development
 .env.test
 .env.production
-app.db
 *.egg-info/
-.venv/
 logs/
 .vscode/
 .coverage
+.claude
