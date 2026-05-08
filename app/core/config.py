@@ -14,11 +14,11 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     WORKERS: int = 4
 
-    POSTGRES_SERVER: str = ""
+    POSTGRES_SERVER: str = "localhost"
     POSTGRES_PORT: int = 5432
-    POSTGRES_USER: str = ""
-    POSTGRES_PASSWORD: str = ""
-    POSTGRES_DB: str = ""
+    POSTGRES_USER: str = "postgres"
+    POSTGRES_PASSWORD: str = "postgres"
+    POSTGRES_DB: str = "fastpi_demo"
 
     @property
     def DATABASE_URL(self) -> PostgresDsn:
