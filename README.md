@@ -99,7 +99,7 @@ fastapi run --workers ${WORKERS:-4} main.py
 docker compose up -d --build
 
 # 查看日志
-docker compose logs -f web
+docker compose logs -f backend
 
 # 停止
 docker compose down
