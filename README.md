@@ -172,14 +172,12 @@ mypy app/
 | `APP_NAME` | FastAPI Demo | 应用名称 |
 | `DEBUG` | false | 调试模式 |
 | `LOG_LEVEL` | INFO | 日志级别 |
-| `LOG_DIR` | logs | 日志目录 |
 | `DATABASE_URL` | postgresql+asyncpg://... | 数据库连接 |
 | `SECRET_KEY` | change-me-... | JWT 签名密钥 |
 | `ALGORITHM` | HS256 | JWT 算法 |
 | `ACCESS_TOKEN_EXPIRE_MINUTES` | 30 | Access token 过期时间 |
 | `REFRESH_TOKEN_EXPIRE_DAYS` | 7 | Refresh token 过期时间 |
 | `WORKERS` | 4 | Gunicorn worker 数 |
-| `BIND` | 0.0.0.0:8000 | 监听地址 |
 
 ## 数据库迁移
 
