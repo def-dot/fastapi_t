@@ -20,6 +20,7 @@ pwd_hash = PasswordHash.recommended()
 
 ALGORITHM = "HS256"
 
+
 # ---------- 密码哈希 ----------
 def hash_password(password: str) -> str:
     return pwd_hash.hash(password)
