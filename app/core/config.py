@@ -36,6 +36,9 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
+    # Sentry
+    SENTRY_DSN: str = ""
+
     model_config = {"env_file": f".env.{APP_ENV}", "env_file_encoding": "utf-8"}
 
 

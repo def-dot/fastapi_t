@@ -3,10 +3,11 @@
 from contextlib import asynccontextmanager
 from typing import Any
 
+import sentry_sdk
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.core.config import settings
+from app.core.config import APP_ENV, settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import get_logger, setup_logging
 from app.core.middleware import access_log_middleware
@@ -16,9 +17,23 @@ from app.schemas.schemas import ResponseBase
 logger = get_logger(__name__)
 
 
+def init_sentry() -> None:
+    if not settings.SENTRY_DSN:
+        logger.info("Sentry DSN not configured, skipping initialization")
+        return
+    sentry_sdk.init(
+        dsn=settings.SENTRY_DSN,
+        environment=APP_ENV,
+        traces_sample_rate=1.0 if APP_ENV == "development" else 0.1,
+        send_default_pii=False,
+    )
+    logger.info("Sentry initialized (env=%s)", APP_ENV)
+
+
 # ---------- lifespan：应用启动/关闭时执行 ----------
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> Any:
+    init_sentry()
     setup_logging()
     try:
         import subprocess
