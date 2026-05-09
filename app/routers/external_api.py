@@ -19,7 +19,7 @@ router = APIRouter(prefix="/api/external", tags=["外部API"], dependencies=[Dep
 
 
 @api_retry
-async def call_external_api(endpoint: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+async def call_external_api(endpoint: str, params: dict[str, Any] | None = None) -> Any:
     """
     调用外部 API 的函数，带有自动重试
     使用 api_retry 装饰器，在连接失败或超时时自动重试
@@ -27,7 +27,7 @@ async def call_external_api(endpoint: str, params: dict[str, Any] | None = None)
     async with httpx.AsyncClient() as client:
         response = await client.get(f"https://api.example.com{endpoint}", params=params or {}, timeout=10.0)
         response.raise_for_status()
-        return cast(dict[str, Any], response.json())
+        return response.json()
 
 
 @db_retry
