@@ -39,6 +39,12 @@ class Settings(BaseSettings):
     # Sentry
     SENTRY_DSN: str = ""
 
+    # 飞书
+    FEISHU_WEBHOOK_URL: str = ""
+
+    # Sentry Webhook 签名密钥（Sentry Alert Rule 中配置，为空则跳过验证）
+    SENTRY_WEBHOOK_SECRET: str = ""
+
     model_config = {"env_file": f".env.{APP_ENV}", "env_file_encoding": "utf-8"}
 
 

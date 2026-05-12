@@ -1,17 +1,19 @@
 """FastAPI 应用入口"""
 
+import logging
 from contextlib import asynccontextmanager
 from typing import Any
 
 import sentry_sdk
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sentry_sdk.integrations.logging import LoggingIntegration
 
 from app.core.config import APP_ENV, settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import get_logger, setup_logging
 from app.core.middleware import access_log_middleware
-from app.routers import auth, external_api, items, users
+from app.routers import auth, external_api, items, users, webhooks
 from app.schemas.schemas import ResponseBase
 
 logger = get_logger(__name__)
@@ -26,6 +28,12 @@ def init_sentry() -> None:
         environment=APP_ENV,
         traces_sample_rate=1.0 if APP_ENV == "development" else 0.1,
         send_default_pii=False,
+        integrations=[
+            LoggingIntegration(
+                level=logging.INFO,
+                event_level=logging.ERROR,
+            ),
+        ],
     )
     logger.info("Sentry initialized (env=%s)", APP_ENV)
 
@@ -73,6 +81,7 @@ app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(items.router)
 app.include_router(external_api.router)
+app.include_router(webhooks.router)
 
 
 # ---------- 健康检查 ----------
