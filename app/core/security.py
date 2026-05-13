@@ -21,13 +21,16 @@ pwd_hash = PasswordHash.recommended()
 ALGORITHM = "HS256"
 
 
-# ---------- 密码哈希 ----------
 def hash_password(password: str) -> str:
     return pwd_hash.hash(password)
 
 
 def verify_password(plain: str, hashed: str) -> bool:
     return pwd_hash.verify(plain, hashed)
+
+
+def verify_and_update_password(plain: str, hashed: str) -> tuple[bool, str | None]:
+    return pwd_hash.verify_and_update(plain, hashed)
 
 
 DUMMY_HASHED_PASSWORD = hash_password("dummy-password-for-timing-attack-prevention")

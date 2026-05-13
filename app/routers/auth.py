@@ -13,7 +13,7 @@ from app.core.security import (
     create_refresh_token,
     decode_access_token,
     hash_password,
-    verify_password,
+    verify_and_update_password,
 )
 from app.models.user import User, UserCreate, UserOut
 from app.schemas.schemas import (
@@ -75,13 +75,19 @@ async def login(form: OAuth2Form, db: SessionDep) -> Any:
 
     # 无论用户是否存在都执行一次哈希验证，防止通过响应时间枚举用户名
     password_hash = user.hashed_password if user else DUMMY_HASHED_PASSWORD
-    password_ok = verify_password(form.password, password_hash)
+    password_ok, updated_hash = verify_and_update_password(form.password, password_hash)
     if not user or not password_ok:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="用户或密码错误",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+    # 哈希算法过旧时自动升级
+    if updated_hash:
+        user.hashed_password = updated_hash
+        db.add(user)
+        await db.commit()
     access_token = create_access_token(data={"sub": user.username})
     refresh_token = create_refresh_token(data={"sub": user.username})
     logger.info("User logged in: %s", user.username)
