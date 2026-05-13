@@ -13,7 +13,7 @@ from app.schemas.schemas import RESPONSE_401, ResponseBase
 from app.utils.retry import api_retry
 
 logger = get_logger(__name__)
-router = APIRouter(prefix="/api/external", tags=["外部API"], dependencies=[Depends(get_current_user)])
+router = APIRouter(prefix="/external", tags=["外部API"], dependencies=[Depends(get_current_user)])
 
 
 @api_retry

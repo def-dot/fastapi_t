@@ -32,7 +32,7 @@ from app.schemas.schemas import (
 )
 
 logger = get_logger(__name__)
-router = APIRouter(prefix="/api/auth", tags=["认证"])
+router = APIRouter(prefix="/auth", tags=["认证"])
 
 
 def send_welcome_email(email: str, username: str) -> None:

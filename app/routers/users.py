@@ -18,7 +18,7 @@ from app.schemas.schemas import (
 )
 
 logger = get_logger(__name__)
-router = APIRouter(prefix="/api/users", tags=["用户"], dependencies=[Depends(get_current_user)])
+router = APIRouter(prefix="/users", tags=["用户"], dependencies=[Depends(get_current_user)])
 
 
 @router.get("/me", response_model=ResponseBase[UserOut], responses={**RESPONSE_401})

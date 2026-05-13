@@ -16,7 +16,7 @@ from app.core.config import settings
 from app.core.database import get_db
 from app.models.user import User
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 # Argon2 优先用于新哈希，同时兼容验证旧 bcrypt 哈希
 pwd_hash = PasswordHash((Argon2Hasher(), BcryptHasher()))

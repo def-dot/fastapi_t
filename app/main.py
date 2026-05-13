@@ -77,10 +77,11 @@ app.add_middleware(
 app.middleware("http")(access_log_middleware)
 
 # ---------- 注册路由 ----------
-app.include_router(auth.router)
-app.include_router(users.router)
-app.include_router(items.router)
-app.include_router(external_api.router)
+API_V1 = "/api/v1"
+app.include_router(auth.router, prefix=API_V1)
+app.include_router(users.router, prefix=API_V1)
+app.include_router(items.router, prefix=API_V1)
+app.include_router(external_api.router, prefix=API_V1)
 app.include_router(webhooks.router)
 
 

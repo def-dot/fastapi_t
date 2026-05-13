@@ -19,7 +19,7 @@ from app.schemas.schemas import (
 )
 
 logger = get_logger(__name__)
-router = APIRouter(prefix="/api/items", tags=["Item"], dependencies=[Depends(get_current_user)])
+router = APIRouter(prefix="/items", tags=["Item"], dependencies=[Depends(get_current_user)])
 
 
 @router.post(
