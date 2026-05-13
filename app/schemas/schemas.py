@@ -75,3 +75,16 @@ class RefreshTokenRequest(BaseModel):
     """刷新令牌请求"""
 
     refresh_token: str = Field(description="刷新令牌")
+
+
+class PasswordResetRequest(BaseModel):
+    """密码重置请求（忘记密码）"""
+
+    email: str = Field(description="注册邮箱")
+
+
+class PasswordResetConfirm(BaseModel):
+    """密码重置确认"""
+
+    token: str = Field(description="重置令牌")
+    new_password: str = Field(min_length=6, description="新密码")

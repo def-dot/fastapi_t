@@ -55,6 +55,26 @@ def create_refresh_token(data: dict[str, Any], expires_delta: timedelta | None =
     return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=ALGORITHM)
 
 
+def create_password_reset_token(email: str) -> str:
+    """生成密码重置 token（1 小时有效）"""
+    return jwt.encode(
+        {"sub": email, "exp": datetime.now(UTC) + timedelta(hours=1), "type": "reset"},
+        settings.SECRET_KEY,
+        algorithm=ALGORITHM,
+    )
+
+
+def verify_password_reset_token(token: str) -> str:
+    """验证密码重置 token，返回邮箱"""
+    payload = decode_access_token(token)
+    if payload.get("type") != "reset":
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="无效的重置令牌")
+    email: str | None = payload.get("sub")
+    if email is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="无效的重置令牌")
+    return email
+
+
 def decode_access_token(token: str) -> dict[str, Any]:
     try:
         payload: dict[str, Any] = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
