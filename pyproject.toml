@@ -9,7 +9,7 @@ dependencies = [
     "sqlmodel==0.0.24",
     "pydantic==2.11.3",
     "PyJWT>=2.8",
-    "pwdlib[argon2]>=0.3",
+    "pwdlib[argon2,bcrypt]>=0.3",
     "python-multipart==0.0.20",
     "asyncpg==0.30.0",
     "pydantic-settings>=2.0",
