@@ -10,8 +10,6 @@ from app.core.database import get_db
 from app.core.security import get_current_user
 from app.models.user import User
 
-# ---- 类型别名（在路由中直接用类型注解替代 Depends(...)） ----
-
 SessionDep = Annotated[AsyncSession, Depends(get_db)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
 OAuth2Form = Annotated[OAuth2PasswordRequestForm, Depends()]
