@@ -13,8 +13,7 @@ from app.core.config import APP_ENV, settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import get_logger, setup_logging
 from app.core.middleware import access_log_middleware
-from app.routers import auth, external_api, items, users, webhooks
-from app.schemas.schemas import ResponseBase
+from app.routers import auth, external_api, items, system, users, webhooks
 
 logger = get_logger(__name__)
 
@@ -83,12 +82,7 @@ app.include_router(users.router, prefix=API_V1)
 app.include_router(items.router, prefix=API_V1)
 app.include_router(external_api.router, prefix=API_V1)
 app.include_router(webhooks.router)
-
-
-# ---------- 健康检查 ----------
-@app.get("/health", tags=["系统"], response_model=ResponseBase[dict[str, Any]])
-async def health_check() -> Any:
-    return ResponseBase(data={"status": "ok"})
+app.include_router(system.router)
 
 
 if __name__ == "__main__":
