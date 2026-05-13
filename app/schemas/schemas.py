@@ -88,3 +88,10 @@ class PasswordResetConfirm(BaseModel):
 
     token: str = Field(description="重置令牌")
     new_password: str = Field(min_length=6, description="新密码")
+
+
+class PasswordChangeRequest(BaseModel):
+    """修改密码"""
+
+    current_password: str = Field(description="当前密码")
+    new_password: str = Field(min_length=6, description="新密码")

@@ -5,7 +5,7 @@ from typing import Any
 from fastapi import APIRouter, BackgroundTasks, HTTPException, status
 from sqlmodel import select
 
-from app.core.deps import OAuth2Form, SessionDep
+from app.core.deps import CurrentUser, OAuth2Form, SessionDep
 from app.core.logging import get_logger
 from app.core.security import (
     DUMMY_HASHED_PASSWORD,
@@ -15,6 +15,7 @@ from app.core.security import (
     decode_access_token,
     hash_password,
     verify_and_update_password,
+    verify_password,
     verify_password_reset_token,
 )
 from app.models.user import User, UserCreate, UserOut
@@ -22,6 +23,7 @@ from app.schemas.schemas import (
     RESPONSE_400,
     RESPONSE_401,
     RESPONSE_422,
+    PasswordChangeRequest,
     PasswordResetConfirm,
     PasswordResetRequest,
     RefreshTokenRequest,
@@ -161,3 +163,20 @@ async def confirm_password_reset(body: PasswordResetConfirm, db: SessionDep) -> 
     await db.commit()
     logger.info("Password reset confirmed for %s", user.email)
     return ResponseBase(msg="密码已重置")
+
+
+@router.patch(
+    "/change-password",
+    response_model=ResponseBase[None],
+    responses={**RESPONSE_401, **RESPONSE_422},
+)
+async def change_password(body: PasswordChangeRequest, user: CurrentUser, db: SessionDep) -> Any:
+    """修改密码 — 需登录，验证旧密码后设置新密码"""
+    if not verify_password(body.current_password, user.hashed_password):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="当前密码错误")
+
+    user.hashed_password = hash_password(body.new_password)
+    db.add(user)
+    await db.commit()
+    logger.info("Password changed for %s", user.username)
+    return ResponseBase(msg="密码已修改")
