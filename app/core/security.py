@@ -30,6 +30,9 @@ def verify_password(plain: str, hashed: str) -> bool:
     return pwd_hash.verify(plain, hashed)
 
 
+DUMMY_HASHED_PASSWORD = hash_password("dummy-password-for-timing-attack-prevention")
+
+
 # ---------- JWT ----------
 def create_access_token(data: dict[str, Any], expires_delta: timedelta | None = None) -> str:
     to_encode = data.copy()

@@ -8,6 +8,7 @@ from sqlmodel import select
 from app.core.deps import OAuth2Form, SessionDep
 from app.core.logging import get_logger
 from app.core.security import (
+    DUMMY_HASHED_PASSWORD,
     create_access_token,
     create_refresh_token,
     decode_access_token,
@@ -71,7 +72,11 @@ async def login(form: OAuth2Form, db: SessionDep) -> Any:
     """登录获取 JWT Token - 支持用户名或邮箱登录（OAuth2 兼容）"""
     result = await db.exec(select(User).where((User.username == form.username) | (User.email == form.username)))
     user = result.first()
-    if not user or not verify_password(form.password, user.hashed_password):
+
+    # 无论用户是否存在都执行一次哈希验证，防止通过响应时间枚举用户名
+    password_hash = user.hashed_password if user else DUMMY_HASHED_PASSWORD
+    password_ok = verify_password(form.password, password_hash)
+    if not user or not password_ok:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="用户或密码错误",
