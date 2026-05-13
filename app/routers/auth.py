@@ -64,7 +64,7 @@ async def register(user_in: UserCreate, background_tasks: BackgroundTasks, db: S
 
 @router.post(
     "/login",
-    response_model=Token,
+    response_model=ResponseBase[Token],
     responses={**RESPONSE_401},
 )
 async def login(form: OAuth2Form, db: SessionDep) -> Any:
@@ -80,12 +80,12 @@ async def login(form: OAuth2Form, db: SessionDep) -> Any:
     access_token = create_access_token(data={"sub": user.username})
     refresh_token = create_refresh_token(data={"sub": user.username})
     logger.info("User logged in: %s", user.username)
-    return Token(access_token=access_token, refresh_token=refresh_token)
+    return ResponseBase(data=Token(access_token=access_token, refresh_token=refresh_token))
 
 
 @router.post(
     "/refresh",
-    response_model=Token,
+    response_model=ResponseBase[Token],
     responses={**RESPONSE_401},
 )
 async def refresh(body: RefreshTokenRequest) -> Any:
@@ -100,4 +100,4 @@ async def refresh(body: RefreshTokenRequest) -> Any:
 
     access_token = create_access_token(data={"sub": username})
     new_rt = create_refresh_token(data={"sub": username})
-    return Token(access_token=access_token, refresh_token=new_rt)
+    return ResponseBase(data=Token(access_token=access_token, refresh_token=new_rt))
