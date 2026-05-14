@@ -1,0 +1,13 @@
+http:
+  routers:
+    fastapi:
+      rule: "PathPrefix(`/`)"
+      entryPoints:
+        - api
+      service: fastapi
+
+  services:
+    fastapi:
+      loadBalancer:
+        servers:
+          - url: "http://backend:8000"

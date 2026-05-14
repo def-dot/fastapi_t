@@ -2,6 +2,8 @@ __pycache__/
 *.pyc
 *.pyo
 .env
+.env.*
+!.env.example
 app.db
 logs/
 .git/
@@ -14,3 +16,5 @@ tests/
 .ruff_cache/
 htmlcov/
 .coverage
+certs/
+letsencrypt/

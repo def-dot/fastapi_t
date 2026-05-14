@@ -1,0 +1,21 @@
+# 开发环境覆盖 — docker compose up 自动加载
+services:
+  traefik:
+    image: traefik:v3.3
+    restart: always
+    command:
+      - "--api.insecure=true"
+      - "--providers.file=true"
+      - "--providers.file.filename=/etc/traefik/traefik.yml"
+      - "--entrypoints.api.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+
+  backend:
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ./logs:/app/logs

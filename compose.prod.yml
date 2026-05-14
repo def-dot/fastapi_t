@@ -1,0 +1,17 @@
+# 生产环境覆盖 — docker compose -f compose.yml -f compose.prod.yml up -d
+services:
+  traefik:
+    image: traefik:v3.3
+    restart: always
+    command:
+      - "--providers.file=true"
+      - "--providers.file.filename=/etc/traefik/traefik.yml"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+    volumes:
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+
+  backend:
+    volumes:
+      - ./logs:/app/logs
