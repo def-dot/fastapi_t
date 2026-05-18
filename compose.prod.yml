@@ -1,14 +1,16 @@
-# 手动或 CI/CD 执行： docker compose --env-file .env.production -f compose.yml -f compose.prod.yml run --rm init
+# 手动部署： bash deploy.sh
 # docker compose --env-file .env.production -f compose.yml -f compose.prod.yml up -d
 services:
   db:
     restart: always
 
   db_migrate:
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}
     profiles:
       - migrate
 
   backend:
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}
     restart: always
     depends_on:
       db:

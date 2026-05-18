@@ -9,7 +9,7 @@ APP_ENV = os.getenv("APP_ENV", "development")
 
 
 class Settings(BaseSettings):
-    APP_NAME: str = "FastAPI Demo"
+    APP_NAME: str = "FastAPI Template"
     DB_DEBUG: bool = True
     LOG_LEVEL: str = "INFO"
     WORKERS: int = 4
@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     POSTGRES_PORT: int = 5432
     POSTGRES_USER: str = "postgres"
     POSTGRES_PASSWORD: str = "postgres"
-    POSTGRES_DB: str = "fastpi_demo"
+    POSTGRES_DB: str = "fastapi_template"
 
     @property
     def DATABASE_URL(self) -> PostgresDsn:

@@ -1,1 +1,1 @@
-"""fastapi-demo 应用包"""
+"""fastapi-template 应用包"""

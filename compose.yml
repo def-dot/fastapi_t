@@ -27,7 +27,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: bash scripts/migrate_db.sh
+    command: alembic upgrade head
 
   backend:
     build: .
@@ -37,7 +37,7 @@ services:
       LOG_LEVEL: ${LOG_LEVEL}
       WORKERS: ${WORKERS}
     depends_on:
-      init:
+      db_migrate:
         condition: service_completed_successfully
       db:
         condition: service_healthy

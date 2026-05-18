@@ -58,7 +58,7 @@ app = FastAPI(
     title=settings.APP_NAME,
     version="1.0.0",
     lifespan=lifespan,
-    description="FastAPI Demo — 用户认证与 CRUD 示例项目",
+    description="FastAPI Template — 用户认证与 CRUD 示例项目",
     docs_url="/docs" if APP_ENV != "production" else None,
     redoc_url="/redoc" if APP_ENV != "production" else None,
     openapi_url="/openapi.json" if APP_ENV != "production" else None,
